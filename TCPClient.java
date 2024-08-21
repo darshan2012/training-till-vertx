@@ -5,7 +5,7 @@ import java.net.Socket;
 
  class TCPClient {
     public static void main(String[] args) throws IOException {
-        Socket s = new Socket("localhost",4040);
+        Socket s = new Socket("10.20.40.203",6666);
         DataOutputStream dout = new DataOutputStream(s.getOutputStream());
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
