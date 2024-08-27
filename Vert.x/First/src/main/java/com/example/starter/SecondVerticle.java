@@ -5,7 +5,7 @@ import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 
-public class SecondVerticle extends AbstractVerticle {
+class SecondVerticle extends AbstractVerticle {
 
   public void start(Promise<Void> startPromise){
 

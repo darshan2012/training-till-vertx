@@ -3,8 +3,10 @@ package com.example.starter;
 import com.example.starter.buffer.BufferUsage;
 import com.example.starter.dnsClient.DNSClientUsage;
 import com.example.starter.eventbus.EventBusUsage;
+import com.example.starter.http.HttpVerticle;
 import com.example.starter.json.JsonObjectUsage;
 import com.example.starter.socket.SocketUsage;
+import com.example.starter.verticle.StandardVerticle;
 import io.vertx.core.*;
 import io.vertx.core.net.NetServer;
 
@@ -14,7 +16,10 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
 
 
-
+    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
+      System.out.println("Deployed ");
+    });
+//    vertx.deployVerticle(new HttpVerticle());
 //    vertx.deployVerticle(JsonObjectUsage.class.getName());
 //    vertx.deployVerticle(new SecondVerticle()).onComplete(res ->{
 //      if(res.succeeded())
@@ -61,7 +66,7 @@ public class MainVerticle extends AbstractVerticle {
 //    one();
 //    two();
 //    vertx.deployVerticle(new SocketUsage());
-    vertx.deployVerticle(new DNSClientUsage());
+//    vertx.deployVerticle(new DNSClientUsage());
 //    vertx.createNetServer().connectHandler(sock -> {
 //
 //      // Create a pipe
