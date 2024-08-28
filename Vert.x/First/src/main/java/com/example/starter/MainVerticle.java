@@ -1,24 +1,17 @@
 package com.example.starter;
 
-import com.example.starter.buffer.BufferUsage;
-import com.example.starter.dnsClient.DNSClientUsage;
-import com.example.starter.eventbus.EventBusUsage;
-import com.example.starter.http.HttpVerticle;
-import com.example.starter.json.JsonObjectUsage;
-import com.example.starter.socket.SocketUsage;
-import com.example.starter.verticle.StandardVerticle;
+import com.example.starter.web.router.RouterVerticle;
 import io.vertx.core.*;
-import io.vertx.core.net.NetServer;
 
 public class MainVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
 
-
-    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
-      System.out.println("Deployed ");
-    });
+      vertx.deployVerticle(new RouterVerticle());
+//    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
+//      System.out.println("Deployed ");
+//    });
 //    vertx.deployVerticle(new HttpVerticle());
 //    vertx.deployVerticle(JsonObjectUsage.class.getName());
 //    vertx.deployVerticle(new SecondVerticle()).onComplete(res ->{

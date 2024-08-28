@@ -15,7 +15,7 @@ public class StandardVerticle extends AbstractVerticle {
     context1.putLocal("local","data is local");
 
     vertx.sharedData().getLocalMap("myMap").put("GlobalShared", "data is global via sharedData");
-    Thread.sleep(10000);
+    Thread.sleep(1000);
     JsonObject config = new JsonObject().put("one",1).put("two",2);
     DeploymentOptions options = new DeploymentOptions().setConfig(config);
     vertx.deployVerticle(new ConfigVerticle(),options).onComplete((res) -> {
