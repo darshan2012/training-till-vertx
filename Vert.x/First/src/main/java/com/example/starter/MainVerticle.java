@@ -1,5 +1,6 @@
 package com.example.starter;
 
+import com.example.starter.eventbus.EventBusUsage;
 import com.example.starter.web.router.RouterVerticle;
 import io.vertx.core.*;
 
@@ -8,7 +9,9 @@ public class MainVerticle extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
 
-      vertx.deployVerticle(new RouterVerticle());
+    startPromise.complete();
+
+    vertx.deployVerticle(new RouterVerticle());
 //    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
 //      System.out.println("Deployed ");
 //    });

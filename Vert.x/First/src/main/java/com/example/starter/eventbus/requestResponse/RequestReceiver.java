@@ -17,6 +17,9 @@ public class RequestReceiver extends AbstractVerticle {
       System.out.println(req.body());
       req.reply("This is the response from " + Thread.currentThread().getName());
     });
+    eb.consumer("data",event -> {
+      System.out.println("dasdadf" + event.body());
+    });
 
     vertx.setPeriodic(10000,id -> {
       consumer.unregister();

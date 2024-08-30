@@ -63,6 +63,11 @@
       <artifactId>vertx-web</artifactId>
       <version>4.5.9</version>
     </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-config</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
