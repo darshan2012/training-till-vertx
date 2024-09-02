@@ -1,11 +1,11 @@
 import java.util.List;
 
-public class User {
+public abstract class User {
 
     private String username;
     private String password;
     private String name;
-    List<Book> borrowedBooks;
+
     public User(String username, String password, String name) {
         this.username = username;
         this.password = password;
@@ -36,11 +36,5 @@ public class User {
         this.name = name;
     }
 
-    public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
 
-    public void setBorrowedBooks(List<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
-    }
 }

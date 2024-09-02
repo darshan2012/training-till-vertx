@@ -1,6 +1,7 @@
 package com.lms.Exceptions;
 
-public class AuthenticationException extends Exception {
+public class AuthenticationException extends RuntimeException {
+    public AuthenticationException(){super("Could not login");}
     public AuthenticationException(String message) {
         super(message);
     }

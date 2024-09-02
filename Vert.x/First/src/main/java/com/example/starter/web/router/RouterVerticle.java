@@ -70,35 +70,40 @@ public class RouterVerticle extends AbstractVerticle {
 
     // /json route
     router.post("/json")
-//      .handler(TimeoutHandler.create(100)) // 5 seconds timeout
+      .handler(TimeoutHandler.create(1000)) // 5 seconds timeout
       .handler(BodyHandler.create())
       .handler(context -> {
         // Offload the blocking operation to a worker thread
-        vertx.executeBlocking(promise -> {
-          JsonObject obj = context.body().asJsonObject();
-          try {
-            Thread.sleep(15000); // Simulate blocking operation
-          } catch (InterruptedException e) {
-            promise.fail(e);
-            return;
-          }
-
-          // Simulate a long-running computation
-          for (int i = 0; i < 1000000000; i++);
-
-          promise.complete(obj);
-        }, res -> {
-          if (context.response().ended()) {
-            return;
-          }
-          if (res.succeeded()) {
-            JsonObject obj = (JsonObject) res.result();
-            System.out.println("Received JSON: " + obj);
-            context.response().end("done");
-          } else {
-            context.fail(res.cause());
-          }
-        });
+        try {
+          Thread.sleep(4000);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+//        vertx.executeBlocking(promise -> {
+//          JsonObject obj = context.body().asJsonObject();
+//          try {
+//            Thread.sleep(15000); // Simulate blocking operation
+//          } catch (InterruptedException e) {
+//            promise.fail(e);
+//            return;
+//          }
+//
+//          // Simulate a long-running computation
+//          for (int i = 0; i < 1000000000; i++);
+//
+//          promise.complete(obj);
+//        }, res -> {
+//          if (context.response().ended()) {
+//            return;
+//          }
+//          if (res.succeeded()) {
+//            JsonObject obj = (JsonObject) res.result();
+//            System.out.println("Received JSON: " + obj);
+//            context.response().end("done");
+//          } else {
+//            context.fail(res.cause());
+//          }
+//        });
       });
 
 // Sub-router for /user routes
