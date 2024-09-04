@@ -16,16 +16,16 @@ public class StandardVerticle extends AbstractVerticle {
 
     vertx.sharedData().getLocalMap("myMap").put("GlobalShared", "data is global via sharedData");
     Thread.sleep(1000);
-    JsonObject config = new JsonObject().put("one",1).put("two",2);
-    DeploymentOptions options = new DeploymentOptions().setConfig(config);
-    vertx.deployVerticle(new ConfigVerticle(),options).onComplete((res) -> {
-      System.out.println("Deployment done " + res + " at " + LocalDateTime.now());
-    });
-    vertx.runOnContext((id) -> {
-      System.out.println((String) context1.getLocal("local"));
-      System.out.println((String) context1.get("Global"));
-    });
-    System.out.println((String) context1.getLocal("local"));
+//    JsonObject config = new JsonObject().put("one",1).put("two",2);
+//    DeploymentOptions options = new DeploymentOptions().setConfig(config);
+//    vertx.deployVerticle(new ConfigVerticle(),options).onComplete((res) -> {
+//      System.out.println("Deployment done " + res + " at " + LocalDateTime.now());
+//    });
+//    vertx.runOnContext((id) -> {
+//      System.out.println((String) context1.getLocal("local"));
+//      System.out.println((String) context1.get("Global"));
+//    });
+//    System.out.println((String) context1.getLocal("local"));
 
   }
 }

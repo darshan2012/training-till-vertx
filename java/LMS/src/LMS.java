@@ -18,7 +18,6 @@ public class LMS {
     }
     public void start() {
         int choice=0;
-
         do{
             try{
                 loginChoice();
@@ -47,9 +46,10 @@ public class LMS {
     private void libraryOperations(User user){
 
         if(user instanceof Admin)
-            adminOperations = new LibraryOperations(authActivity.getUsers());
-        else if(user instanceof Student)
-            studentOperations = new LibraryOperations(authActivity.getUsers());
+            new AdminOperationsUi(user).operations();
+        else if(user instanceof Student) {
+            new StudentOperationsUi(user).operations();
+        }
         int choice=-1;
         do{
             try{

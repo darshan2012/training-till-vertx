@@ -18,6 +18,9 @@ public class EventBusUsage extends AbstractVerticle {
 //    vertx.deployVerticle(new PointToPointSender());
 //    vertx.deployVerticle(PointToPointReceiver.class.getName(),new DeploymentOptions().setInstances(4));
     vertx.deployVerticle(RequestSender.class.getName());
-    vertx.deployVerticle(RequestReceiver.class.getName(),new DeploymentOptions().setInstances(4));
+//    vertx.deployVerticle(RequestReceiver.class.getName()).onComplete(v -> {
+//      vertx.deployVerticle(RequestSender.class.getName());
+//
+//    });
   }
 }

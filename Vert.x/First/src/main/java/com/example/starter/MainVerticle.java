@@ -1,6 +1,8 @@
 package com.example.starter;
 
 import com.example.starter.eventbus.EventBusUsage;
+import com.example.starter.verticle.ConfigVerticle;
+import com.example.starter.verticle.StandardVerticle;
 import com.example.starter.web.router.RouterVerticle;
 import io.vertx.core.*;
 
@@ -11,9 +13,10 @@ public class MainVerticle extends AbstractVerticle {
 
     startPromise.complete();
 
-    vertx.deployVerticle(new RouterVerticle());
+//    vertx.deployVerticle(new RouterVerticle());
 //    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
 //      System.out.println("Deployed ");
+//      vertx.deployVerticle(new ConfigVerticle());
 //    });
 //    vertx.deployVerticle(new HttpVerticle());
 //    vertx.deployVerticle(JsonObjectUsage.class.getName());
@@ -28,7 +31,7 @@ public class MainVerticle extends AbstractVerticle {
 
 //    vertx.deployVerticle(new BufferUsage());
 
-//    vertx.deployVerticle(new EventBusUsage());
+    vertx.deployVerticle(new EventBusUsage());
 //    vertx.createHttpServer().requestHandler(req -> {
 //      req.response()
 //        .putHeader("content-type", "text/plain")

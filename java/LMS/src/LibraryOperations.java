@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LibraryOperations implements StudentOperations,AdminOperations  {
+
     public final long MAX_HOLD_DAYS = 14;
     public final long PENALTY_PER_DAY = 10;
     Map<String, Book> books = new HashMap<>();
     Map<String,BorrowBook> borrowedBooks = new HashMap<>();
     Map<String,Student> users;
     PenaltyCalculator penaltyCalculator;
+//    private static LibraryOperations LibOpsInstance;
 
     public LibraryOperations(Map<String, Student> users, PenaltyCalculator calculator) {
         this.users = users;
