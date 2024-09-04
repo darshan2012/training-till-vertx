@@ -25,6 +25,7 @@ public class AdminView {
     }
 
     public AdminView(BufferedReader in, PrintWriter out) {
+
     }
 
     private void choices() {

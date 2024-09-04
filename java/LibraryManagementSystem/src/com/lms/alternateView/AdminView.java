@@ -1,12 +1,12 @@
 package com.lms.alternateView;
 
-
 import com.lms.models.Book;
 import com.lms.services.AdminService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketException;
 import java.util.List;
 
 public class AdminView {
@@ -14,23 +14,20 @@ public class AdminView {
     private BufferedReader in;
     private PrintWriter out;
 
-    public AdminView(BufferedReader in, PrintWriter out) {
+    public AdminView(PrintWriter out, BufferedReader in) {
         this.in = in;
         this.out = out;
         this.adminService = new AdminService();
     }
 
-    private void choices() {
-        out.println("1. Add Book\n2. Remove Book\n3. Search Books\n4. View Books\n0. Exit");
-        out.print("Please choose an Operation: ");
-    }
 
-    public void operations() {
+
+    public void operations() throws SocketException {
         try {
             int choice = -1;
             do {
-                choices();
                 choice = Integer.parseInt(in.readLine());
+
                 switch (choice) {
                     case 1 -> addBook();
                     case 2 -> removeBook();
@@ -40,41 +37,105 @@ public class AdminView {
                     default -> out.println("\nInvalid Operation");
                 }
             } while (choice != 0);
+        }catch (SocketException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void addBook() throws IOException {
-        out.print("Enter ISBN: ");
-        String isbn = in.readLine();
-        out.print("Enter Book Name: ");
-        String name = in.readLine();
-        out.print("Enter Author Name: ");
-        String author = in.readLine();
-        out.print("Enter Genre: ");
-        String genre = in.readLine();
+        try {
+            String isbn = in.readLine();
 
-        Book book = new Book(isbn, name, author, genre);
-        adminService.addBook(book);
-        out.println("\nBook added Successfully!");
+            String name = in.readLine();
+
+            String author = in.readLine();
+
+            String genre = in.readLine();
+
+            Book book = new Book(isbn, name, author, genre);
+            adminService.addBook(book);
+            out.println("Book added Successfully!");
+        } catch (Exception e) {
+            out.println(e.getMessage());
+        }
+
     }
 
     private void removeBook() throws IOException {
-        out.print("Enter ISBN: ");
-        String isbn = in.readLine();
-        adminService.removeBook(isbn);
-        out.println("\nBook removed Successfully!");
+        try {
+            String isbn = in.readLine();
+            adminService.removeBook(isbn);
+            out.println("Book removed Successfully!");
+        } catch (Exception e) {
+            out.println(e.getMessage());
+        }
+
     }
 
     private void searchBook() throws IOException {
-        // Implement search options similar to addBook and removeBook methods
+
+        int searchChoice = Integer.parseInt(in.readLine());
+
+        switch (searchChoice) {
+            case 1 -> handleSearchBookByName();
+            case 2 -> handleSearchBookByAuthor();
+            case 3 -> handleSearchBookByISBN();
+            case 4 -> handleSearchBookByGenre();
+            default -> out.println("Invalid search option");
+        }
+    }
+
+    private void handleSearchBookByName() throws IOException {
+        String name = in.readLine();
+        List<Book> books = adminService.searchBooksByName(name);
+        sendBooks(books);
+    }
+
+    private void handleSearchBookByAuthor() throws IOException {
+        String author = in.readLine();
+        List<Book> books = adminService.searchBooksByAuthor(author);
+        sendBooks(books);
+    }
+
+    private void handleSearchBookByISBN() throws IOException {
+        String isbn = in.readLine();
+        Book book = adminService.getBookByIsbn(isbn);
+        if (book != null) {
+            out.println(book);
+        } else {
+            out.println("Book not found with ISBN: " + isbn);
+        }
+        out.println("end");
+    }
+
+    private void handleSearchBookByGenre() throws IOException {
+        String genre = in.readLine();
+        List<Book> books = adminService.getBooksByGenre(genre);
+        sendBooks(books);
+    }
+
+    private void sendBooks(List<Book> books) {
+        if (books != null && !books.isEmpty()) {
+            for (Book book : books) {
+                out.println(book);
+            }
+        } else {
+            out.println("No books found.");
+        }
+        out.println("end");
     }
 
     private void viewBooks() {
         List<Book> books = adminService.getAllBooks();
-        for (Book book : books) {
-            out.println(book);
+        if (books.isEmpty()) {
+            out.println("No books available.");
+        } else {
+            for (Book book : books) {
+                out.println(book);
+            }
         }
+        out.println("end");
     }
 }

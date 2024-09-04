@@ -46,6 +46,7 @@ public class BorrowerService extends LibUserService {
         if (book.getIsAvailable()) {
             throw new BookUnavailableException("Book is Already Available");
         }
+        book.setIsAvailable(true);
         borrower.removeBookFromBorrow(isbn);
 
         return calculatePanelty();
