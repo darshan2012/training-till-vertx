@@ -1,7 +1,13 @@
 package com.lms.models;
 
+import com.lms.services.BorrowerService;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.TemporalAmount;
+
+import static com.lms.services.BorrowerService.MAX_HOLD_DAYS;
 
 public class BorrowedBook implements Serializable {
     public Book getBook() {
@@ -33,7 +39,10 @@ public class BorrowedBook implements Serializable {
     public BorrowedBook(Book book) {
         this.book = book;
         issueDate = LocalDateTime.now();
+        expectedReturnDate = LocalDateTime.now().plus(Period.ofDays(MAX_HOLD_DAYS));
     }
+
+
 
     private Book book;
     private LocalDateTime issueDate;

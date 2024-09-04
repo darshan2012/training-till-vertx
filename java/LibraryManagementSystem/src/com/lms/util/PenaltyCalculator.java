@@ -1,6 +1,8 @@
 package com.lms.util;
 
+import java.time.LocalDateTime;
+
 @FunctionalInterface
 public interface PenaltyCalculator {
-    long calculatePenalty();
+    long calculatePenalty(LocalDateTime issueDate, LocalDateTime returnDate);
 }

@@ -83,7 +83,6 @@ public class BorrowerView {
     private void searchBook() {
         int choice = -1;
         try {
-
                 searchOptions();
                 choice = Integer.parseInt(br.readLine());
                 out.println(choice);

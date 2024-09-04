@@ -138,7 +138,6 @@ public class BorrowerView {
         out.println("end");
     }
 
-
     private void viewBooks() {
         List<Book> books = borrowerService.getAllBooks();
        sendBooks(books);

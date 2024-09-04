@@ -8,18 +8,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class BorrowedBooksDB {
     private static Map<String, BorrowedBook> borrowedBookMap = new ConcurrentHashMap<>();
-    public boolean checkIfIsbnExist(String isbn){
+    public static boolean checkIfIsbnExist(String isbn){
         return borrowedBookMap.containsKey(isbn);
     }
-    public void removeBook(String isbn){
+    public static void removeBook(String isbn){
         borrowedBookMap.remove(isbn);
     }
-    public void addBorrowedBook(BorrowedBook borrowedBook){
+    public static void addBorrowedBook(BorrowedBook borrowedBook){
         borrowedBookMap.putIfAbsent(borrowedBook.getBook().getIsbn(),borrowedBook);
     }
-    public void removeBorrowedBook(String isbn) {
+    public static void removeBorrowedBook(String isbn) {
         borrowedBookMap.remove(isbn);
     }
-
+    public static BorrowedBook getBorrowedBook(String isbn) {
+        return borrowedBookMap.get(isbn);
+    }
 }
 
