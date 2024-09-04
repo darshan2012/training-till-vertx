@@ -26,7 +26,7 @@ public class BorrowerView {
         System.out.println("1. Issue Book");
         System.out.println("2. Return Book");
         System.out.println("3. Search Books");
-        System.out.println("4. View Available Books");
+        System.out.println("4. View All Books");
         System.out.println("5. View Borrowed Books");
         System.out.println("0. Exit");
         System.out.print("Please choose an Operation: ");
@@ -38,14 +38,14 @@ public class BorrowerView {
             do {
                 choices();
                 choice = Integer.parseInt(br.readLine());
-                out.println(choice);  // Send the choice to the server
+                out.println(choice);
                 switch (choice) {
                     case 1 -> issueBook();
                     case 2 -> returnBook();
                     case 3 -> searchBook();
                     case 4 -> viewBooks();
                     case 5 -> getBorrowedBooks();
-                    case 0 -> out.println("\nExiting...");
+                    case 0 -> System.out.println("\n\tExiting...");
                     default -> System.out.println("\nInvalid Operation");
                 }
             } while (choice != 0);

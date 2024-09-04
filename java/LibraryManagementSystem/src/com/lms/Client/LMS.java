@@ -59,7 +59,7 @@ public class LMS {
                 System.out.println("Socket Exception.." + e.getMessage());
                 break;
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
                 System.err.println("Invalid choice!");
             }
         } while (choice != 3);
@@ -85,6 +85,7 @@ public class LMS {
 
             String response = in.readLine();
             if (response.equals("Authenticated")) {
+                System.out.println("\n\tLogin Successful!");
                 Borrower borrower = new Borrower(username, password);
                 BorrowerView borrowerView = new BorrowerView(borrower, out, in,br);
                 borrowerView.operations();

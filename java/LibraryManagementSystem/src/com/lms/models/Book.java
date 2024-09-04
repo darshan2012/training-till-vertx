@@ -11,11 +11,13 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
+
         return "Book{" +
                 "isbn='" + isbn + '\'' +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
+                ",available='" + (isAvailable?"YES":"NO") + '\'' +
                 '}';
     }
 

@@ -46,14 +46,12 @@ public class BorrowerView {
                     case 3 -> searchBook();
                     case 4 -> viewBooks();
                     case 5 -> getBorrowedBooks();
-                    case 0 -> out.println("Exiting...");
-                    default -> out.println("Invalid choice! Please try again.");
                 }
             } while (choice != 0);
         } catch (SocketException e) {
             throw e;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             out.println("An error occurred: " + e.getMessage());
         }
     }
@@ -94,7 +92,7 @@ public class BorrowerView {
             case 2 -> handleSearchBookByAuthor();
             case 3 -> handleSearchBookByISBN();
             case 4 -> handleSearchBookByGenre();
-            default -> out.println("Invalid search option");
+//            default -> out.println("Invalid search option");
         }
     }
 

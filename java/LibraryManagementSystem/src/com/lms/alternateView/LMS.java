@@ -39,7 +39,6 @@ public class LMS {
 
     public void start(){
 
-        displayHomeHeader();
         int choice=0;
 
             try{
