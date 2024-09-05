@@ -1,18 +1,17 @@
 package com.lms.views;
 
-import com.lms.models.Borrower;
-import com.lms.models.User;
-import com.lms.services.AuthenticationService;
+import com.lms.server.models.Borrower;
+import com.lms.server.services.AuthenticationService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class LMS {
-    BufferedReader br;
+    BufferedReader inputReader;
     private static LMS lms;
 
     private LMS(){
-        br = new BufferedReader(new InputStreamReader(System.in));
+        inputReader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     public static synchronized LMS getLMS(){
@@ -32,7 +31,7 @@ public class LMS {
 
         System.out.println("+-------------------------------------------+");
         System.out.println("|                                           |");
-        System.out.println("| ======> Library Management System <====== |");
+        System.out.println("| ======> LiinputReaderary Management System <====== |");
         System.out.println("|                                           |");
         System.out.println("+-------------------------------------------+");
         System.out.println();
@@ -45,7 +44,7 @@ public class LMS {
             try{
                 authChoices();
                 System.out.print("Enter your choice: ");
-                choice = Integer.parseInt(br.readLine());
+                choice = Integer.parseInt(inputReader.readLine());
                 switch (choice){
                     case 1 -> login();
                     case 2 -> register();
@@ -68,11 +67,11 @@ public class LMS {
         try {
             System.out.println("\n\t\t*Register");
             System.out.print("\nEnter username: ");
-            String username = br.readLine();
+            String username = inputReader.readLine();
             System.out.print("Enter password: ");
-            String password = br.readLine();
+            String password = inputReader.readLine();
             System.out.print("Enter name: ");
-            String name = br.readLine();
+            String name = inputReader.readLine();
             boolean success = AuthenticationService.registerUser(username, password, name);
             if(success)
             {
@@ -88,9 +87,9 @@ public class LMS {
         try {
             System.out.println("\n\t\t*Login\n");
             System.out.print("\nEnter username: ");
-            String username = br.readLine();
+            String username = inputReader.readLine();
             System.out.print("Enter password: ");
-            String password = br.readLine();
+            String password = inputReader.readLine();
             Borrower user = AuthenticationService.signIn(username,password);
             if(user != null)
             {

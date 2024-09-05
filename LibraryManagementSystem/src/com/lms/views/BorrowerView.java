@@ -1,12 +1,11 @@
 package com.lms.views;
 
-import com.lms.db.BorrowedBooksDB;
-import com.lms.exceptions.BookNotFoundException;
-import com.lms.exceptions.BookUnavailableException;
-import com.lms.models.Book;
-import com.lms.models.BorrowedBook;
-import com.lms.models.Borrower;
-import com.lms.services.BorrowerService;
+import com.lms.server.exceptions.BookNotFoundException;
+import com.lms.server.exceptions.BookUnavailableException;
+import com.lms.server.models.Book;
+import com.lms.server.models.BorrowedBook;
+import com.lms.server.models.Borrower;
+import com.lms.server.services.BorrowerService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,14 +14,14 @@ import java.util.List;
 
 public class BorrowerView {
     BorrowerService borrowerService;
-    BufferedReader br;
+    BufferedReader inputReader;
     Borrower borrower;
-    public BorrowerView(BufferedReader br){
-        this.br = br;
+    public BorrowerView(BufferedReader inputReader){
+        this.inputReader = inputReader;
     }
 
     public BorrowerView(Borrower borrower){
-        br = new BufferedReader(new InputStreamReader(System.in));
+        inputReader = new BufferedReader(new InputStreamReader(System.in));
         borrowerService = new BorrowerService(borrower);
     }
 
@@ -39,7 +38,7 @@ public class BorrowerView {
             int choice=-1;
             do{
                 choices();
-                choice = Integer.parseInt(br.readLine());
+                choice = Integer.parseInt(inputReader.readLine());
                 switch (choice){
                     case 1 -> issueBook();
                     case 2 -> returnBook();
@@ -74,7 +73,7 @@ public class BorrowerView {
 
     }
     private void searchOptions(){
-        System.out.println("\n1.Search by name\n2.Search by author name\n3.Search by isbn\n4.Search by genre\n0.Exit");
+        System.out.println("\n1.Search by name\n2.Search by author name\n3.Search by ISBN\n4.Search by genre\n0.Exit");
         System.out.print("Enter your choice: ");
     }
     private void searchBook() {
@@ -82,7 +81,7 @@ public class BorrowerView {
         try {
             do {
                 searchOptions();
-                choice = Integer.parseInt(br.readLine());
+                choice = Integer.parseInt(inputReader.readLine());
                 switch (choice) {
                     case 1 -> searchBookByName();
                     case 2 -> searchBookByAuthor();
@@ -99,44 +98,41 @@ public class BorrowerView {
 
     private void searchBookByName() throws IOException {
         System.out.print("Enter book name: ");
-        String name = br.readLine();
+        String name = inputReader.readLine();
         List<Book> books = borrowerService.searchBooksByName(name);
         printBooks(books);
     }
 
     private void searchBookByAuthor() throws IOException {
         System.out.print("Enter author name: ");
-        String author = br.readLine();
+        String author = inputReader.readLine();
         List<Book> books = borrowerService.searchBooksByAuthor(author);
         printBooks(books);
     }
 
     private void searchBookByISBN() throws IOException {
         System.out.print("Enter ISBN: ");
-        String isbn = br.readLine();
-        Book book = borrowerService.getBookByIsbn(isbn);
+        String ISBN = inputReader.readLine();
+        Book book = borrowerService.getBookByISBN(ISBN);
         if (book != null) {
             System.out.println(book);
         } else {
-            System.out.println("Book not found with ISBN: " + isbn);
+            System.out.println("Book not found with ISBN: " + ISBN);
         }
     }
 
     private void searchBookByGenre() throws IOException {
         System.out.print("Enter genre: ");
-        String genre = br.readLine();
+        String genre = inputReader.readLine();
         List<Book> books = borrowerService.getBooksByGenre(genre);
         printBooks(books);
     }
-//        printBooks(borrowerService.searchBooksByauthor("Harper Lee"));
-//        printBooks(borrowerService.searchBooksByName(""));
-
 
     private void returnBook() {
-        System.out.println("Enter isbn: ");
+        System.out.println("Enter ISBN: ");
         try {
-            String isbn = br.readLine();
-            long panelty = borrowerService.returnBook(isbn);
+            String ISBN = inputReader.readLine();
+            long panelty = borrowerService.returnBook(ISBN);
             System.out.println("\n\t\tBook returned Successfully!!  ");
             if (panelty > 0)
                 System.out.println("your panelty is " + panelty);
@@ -150,10 +146,10 @@ public class BorrowerView {
     }
 
     private void issueBook() {
-        System.out.println("Enter isbn: ");
+        System.out.println("Enter ISBN: ");
         try {
-            String isbn = br.readLine();
-            if (borrowerService.issueBook(isbn)) {
+            String ISBN = inputReader.readLine();
+            if (borrowerService.issueBook(ISBN)) {
                 System.out.println("\n\t\tBook Issued Successfully!!  \n");
             } else
                 System.out.println("Could not issue Book");
