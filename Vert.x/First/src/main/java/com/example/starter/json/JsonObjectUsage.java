@@ -31,6 +31,7 @@ public class JsonObjectUsage extends AbstractVerticle {
   public void creatingFromMap(){
     Map<String,Object> m = new HashMap<>();
     m.put("key","value");
+
     JsonObject json = new JsonObject(m);
 
   }

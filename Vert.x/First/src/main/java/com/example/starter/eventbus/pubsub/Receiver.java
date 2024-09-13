@@ -3,6 +3,8 @@ package com.example.starter.eventbus.pubsub;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.MessageConsumer;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 
 public class Receiver extends AbstractVerticle {
   @Override
@@ -11,16 +13,26 @@ public class Receiver extends AbstractVerticle {
 //    eb.consumer("data",message -> {
 //      System.out.println(message.body() + Thread.currentThread().getName());
 //    });
-    MessageConsumer<String> consumer = eb.consumer("data");
+
+
+    MessageConsumer<Object> consumer = eb.localConsumer("json");
     consumer.completionHandler(res -> {
       if(res.succeeded()){
         System.out.println("handler registered to Data");
       }
       else
         System.out.println("Registration failed!");
+      consumer.unregister().onComplete(r -> {
+          if(r.succeeded())
+              System.out.println("Unregistered");
+          else
+              System.out.println("not");
+      });
     });
     consumer.handler(data -> {
-      System.out.println(data.body());
+//      JsonArray json = data.body();
+      var res = data.body();
+      System.out.println(res);
 //      System.out.println("Headers  : " + data.headers() + " " + data.headers().get("header")  + " \n Address : " + data.address() + " \n Reply address : " + data.replyAddress());
 
     });

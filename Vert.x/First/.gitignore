@@ -1,6 +1,9 @@
 ### Vert.x ###
 .vertx/
 
+1GBFile.txt
+file.txt
+test.txt
 ### Eclipse ###
 
 .metadata

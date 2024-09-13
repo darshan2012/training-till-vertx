@@ -14,10 +14,11 @@ public class EventBusUsage extends AbstractVerticle {
   @Override
   public void start() throws Exception {
 //      vertx.deployVerticle(new Sender());
-//      vertx.deployVerticle(Receiver.class.getName(),new DeploymentOptions().setInstances(3));
-//    vertx.deployVerticle(new PointToPointSender());
+//    vertx.deployVerticle(new Receiver());
+      //      vertx.deployVerticle(Receiver.class.getName(),new DeploymentOptions().setInstances(3));
+    vertx.deployVerticle(new PointToPointSender());
 //    vertx.deployVerticle(PointToPointReceiver.class.getName(),new DeploymentOptions().setInstances(4));
-    vertx.deployVerticle(RequestSender.class.getName());
+//    vertx.deployVerticle(RequestSender.class.getName());
 //    vertx.deployVerticle(RequestReceiver.class.getName()).onComplete(v -> {
 //      vertx.deployVerticle(RequestSender.class.getName());
 //

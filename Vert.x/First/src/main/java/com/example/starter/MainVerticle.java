@@ -1,9 +1,13 @@
 package com.example.starter;
 
 import com.example.starter.eventbus.EventBusUsage;
+import com.example.starter.fileSystem.FileSystemUsage;
+import com.example.starter.future.FutureUsage;
+import com.example.starter.socket.FileServer;
 import com.example.starter.verticle.ConfigVerticle;
 import com.example.starter.verticle.StandardVerticle;
 import com.example.starter.web.router.RouterVerticle;
+import com.example.starter.zmq.ZMQServerVerticle;
 import io.vertx.core.*;
 
 public class MainVerticle extends AbstractVerticle {
@@ -12,38 +16,8 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
 
     startPromise.complete();
-
-//    vertx.deployVerticle(new RouterVerticle());
-//    vertx.deployVerticle(new StandardVerticle()).onComplete(res -> {
-//      System.out.println("Deployed ");
-//      vertx.deployVerticle(new ConfigVerticle());
-//    });
-//    vertx.deployVerticle(new HttpVerticle());
-//    vertx.deployVerticle(JsonObjectUsage.class.getName());
-//    vertx.deployVerticle(new SecondVerticle()).onComplete(res ->{
-//      if(res.succeeded())
-//      System.out.println("Deployed : " + res.result());
-//      else
-//        System.out.println("Unsuccessful deployment : " + res.cause());
-//    });
-//    vertx.deployVerticle("com.example.starter.SecondVerticle",new DeploymentOptions().setInstances(7));
-//    vertx.deployVerticle(SecondVerticle.class.getName(),new DeploymentOptions().setInstances(5).setThreadingModel(ThreadingModel.WORKER));
-
-//    vertx.deployVerticle(new BufferUsage());
-
-    vertx.deployVerticle(new EventBusUsage());
-//    vertx.createHttpServer().requestHandler(req -> {
-//      req.response()
-//        .putHeader("content-type", "text/plain")
-//        .end("Hello from Vert.x!");
-//    }).listen(8888).onComplete(http -> {
-//      if (http.succeeded()) {
-//        startPromise.complete();
-//        System.out.println("HTTP server started on port 8888");
-//        } else {
-//        startPromise.fail(http.cause());
-//      }
-//    });
+//    vertx.deployVerticle(new EventBusUsage());
+    vertx.deployVerticle(new FutureUsage());
 //    System.out.println("its Async " + Thread.currentThread());
 //    Context context1 = vertx.getOrCreateContext();
 //    if (context.isEventLoopContext()) {

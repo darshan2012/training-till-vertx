@@ -14,6 +14,7 @@ public class RequestSender extends AbstractVerticle {
     eb.request("data","this is a request",options,res -> {
       if(res.succeeded())
       {
+
         System.out.println("2 " + res.result().body());
         res.result().reply("This is final reply");
       }
