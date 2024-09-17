@@ -73,6 +73,11 @@
       <artifactId>jeromq</artifactId>
       <version>0.5.3</version>
     </dependency>
+      <dependency>
+          <groupId>io.vertx</groupId>
+          <artifactId>vertx-auth-jwt</artifactId>
+          <version>${vertx.version}</version>
+      </dependency>
   </dependencies>
 
   <build>

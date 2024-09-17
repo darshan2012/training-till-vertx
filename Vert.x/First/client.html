@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SockJS Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+</head>
+<body>
+<h1>SockJS Example</h1>
+<p>Status: <span id="status">Connecting...</span></p>
+<p>Messages:</p>
+<ul id="messages"></ul>
+
+<script>
+    // Connect to the SockJS endpoint
+    var sock = new SockJS('ws://localhost:8080/myapp');
+    var statusElement = document.getElementById('status');
+    var messagesElement = document.getElementById('messages');
+
+    // Update connection status
+    sock.onopen = function() {
+        console.log('Connected');
+        statusElement.textContent = 'Connected';
+        sock.send('Hello, Server!');
+    };
+
+    // Display received messages
+    sock.onmessage = function(e) {
+        console.log('Received from server: ' + e.data);
+        var li = document.createElement('li');
+        li.textContent = 'Received: ' + e.data;
+        messagesElement.appendChild(li);
+    };
+
+    // Handle connection closure
+    sock.onclose = function() {
+        console.log('Connection closed');
+        statusElement.textContent = 'Connection closed';
+    };
+
+    // Handle connection errors
+    sock.onerror = function(error) {
+        console.error('SockJS error', error);
+    };
+</script>
+</body>
+</html>

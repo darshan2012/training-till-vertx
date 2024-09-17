@@ -1,4 +1,4 @@
-package com.example.starter.zmq;
+package com.example.starter.zmq.pubsub;
 
 import io.vertx.core.AbstractVerticle;
 import org.zeromq.SocketType;
@@ -15,9 +15,13 @@ public class PublisherVerticle extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         // Initialize ZeroMQ context and socket
-        context = new ZContext();
         socket = context.createSocket(SocketType.PUB);
-
+        context = new ZContext();
+        socket.setLinger(1000);
+//        socket.setSndHWM(10);
+        socket.setHWM(20);
+//        socket.setRcvHWM(12);
+        socket.setHeartbeatIvl(1000);
         // Bind to TCP and IPC endpoints
         socket.connect("tcp://localhost:5555");
         socket.bind("ipc://weather");
@@ -45,7 +49,9 @@ public class PublisherVerticle extends AbstractVerticle {
     public void stop() throws Exception {
         // Clean up the socket and context when the verticle stops
         if (socket != null) {
+
             socket.close();
+
         }
         if (context != null) {
             context.close();

@@ -10,24 +10,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        VertxOptions options = new VertxOptions().setWorkerPoolSize(3);
+        VertxOptions options = new VertxOptions().setEventLoopPoolSize(1);
         Vertx vertx = Vertx.vertx(options);
-        try
-        {
-            Thread.sleep(10000);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
+
         vertx.deployVerticle(SecondVerticle.class.getName());
 //        vertx.deployVerticle(SecondVerticle.class.getName(),new DeploymentOptions().setThreadingModel(ThreadingModel.WORKER));
-        try
-        {
-            Thread.sleep(10000);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
         vertx.deployVerticle(SecondVerticle.class.getName());
 //        vertx.deployVerticle(new Subscriber(),new DeploymentOptions().setThreadingModel(ThreadingModel.WORKER));
 //        vertx.deployVerticle(new FileClient());

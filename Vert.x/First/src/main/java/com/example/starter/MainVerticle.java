@@ -16,8 +16,8 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
 
     startPromise.complete();
-//    vertx.deployVerticle(new EventBusUsage());
-    vertx.deployVerticle(new FutureUsage());
+    vertx.deployVerticle(new EventBusUsage());
+//    vertx.deployVerticle(new FutureUsage());
 //    System.out.println("its Async " + Thread.currentThread());
 //    Context context1 = vertx.getOrCreateContext();
 //    if (context.isEventLoopContext()) {

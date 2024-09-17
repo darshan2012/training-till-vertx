@@ -59,6 +59,7 @@ public class RouterVerticle extends AbstractVerticle {
 
     SockJSBridgeOptions bridgeOptions = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted).addOutboundPermitted(outboundPermitted);
     // Mount the SockJS handler to the router
+
     router
       .route("/eventbus/*")
       .subRouter(sockJSHandler.bridge(bridgeOptions));
@@ -109,7 +110,7 @@ public class RouterVerticle extends AbstractVerticle {
 // Sub-router for /user routes
 
     router.route("/user/*").subRouter(UserRoutes.routes(vertx));
-
+    failureRoutingExample(router);
     // Start the server
     server.requestHandler(router).listen(8080, "0.0.0.0").onComplete(res -> {
       if (res.succeeded()) {
@@ -124,6 +125,38 @@ public class RouterVerticle extends AbstractVerticle {
 
   }
 
+    public void failureRoutingExample(Router router)
+    {
+        router.get("/somepath/path1/").handler(ctx -> {
+
+            // Let's say this throws a RuntimeException
+            throw new RuntimeException("something happened!");
+
+        });
+
+
+        router.get("/somepath/path2").handler(ctx -> {
+
+            // This one deliberately fails the request passing in the status code
+            // E.g. 403 - Forbidden
+            ctx.fail(403);
+
+        });
+
+        // Define a failure handler
+        // This will get called for any failures in the above handlers
+
+        router.get("/somepath/*").failureHandler(failureRoutingContext -> {
+
+            int statusCode = failureRoutingContext.statusCode();
+
+            // Status code will be 500 for the RuntimeException
+            // or 403 for the other failure
+            HttpServerResponse response = failureRoutingContext.response();
+            response.setStatusCode(statusCode).end("Sorry! Not today");
+
+        });
+    }
   public void basicRouterPractice(){
     HttpServer server = vertx.createHttpServer();
     Router router = Router.router(vertx);

@@ -1,5 +1,6 @@
 package com.example.starter.zmq.dealer_router;
 
+import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
 public class DealerClient {

@@ -1,0 +1,7 @@
+Packets transmitted: 4
+Packets received: 4
+Packet loss: 0%
+Time taken: 3005 ms
+Minimum latency: 3.713 ms
+Average latency: 9.961 ms
+Maximum latency: 26.569 ms

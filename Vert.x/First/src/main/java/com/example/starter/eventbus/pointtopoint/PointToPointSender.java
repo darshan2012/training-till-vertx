@@ -13,19 +13,31 @@ public class PointToPointSender extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     EventBus eb = vertx.eventBus();
-    vertx.setPeriodic(1000, id -> eb.send("Round-Robin", "only you received this"));
+//    vertx.setPeriodic(1000, id -> eb.send("Round-Robin", "only you received this"));
 
-    eb.<JsonObject>localConsumer("json",res -> {
-          System.out.println("1. " + res.body());
-          JsonObject item = res.body();
-          item.put("asdk","akjfs");
-      });
+//    eb.<JsonObject>localConsumer("json",res -> {
+//          System.out.println("1. " + res.body());
+//          JsonObject item = res.body();
+//          item.put("asdk","akjfs");
+//      });
+
       JsonObject json = new JsonObject().put("s","s");
+
       eb.send("json",json);
 
+      System.out.println(json);
+
+      Thread.sleep(1000);
+
+      System.out.println(json);
+
       vertx.setPeriodic(1000,id -> {
+
           System.out.println(json);
+
       });
+
+
 //      eb.consumer("Round-Robin",res -> {
 //          System.out.println("2. " + res.body());
 //      });

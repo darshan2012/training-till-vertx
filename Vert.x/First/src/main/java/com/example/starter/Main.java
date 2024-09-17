@@ -1,7 +1,5 @@
 package com.example.starter;
 
-import com.example.starter.zmq.PublisherVerticle;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 
 public class Main

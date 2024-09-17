@@ -30,11 +30,12 @@ public class WebSocketClientExample extends WebSocketClient {
 
     @Override
     public void onError(Exception ex) {
+        System.out.println("error");
         ex.printStackTrace();
     }
 
     public static void main(String[] args) throws Exception {
-        URI serverUri = new URI("ws://localhost:8887");
+        URI serverUri = new URI("ws://localhost:8080/myapp/abc");
         WebSocketClientExample client = new WebSocketClientExample(serverUri);
         client.connect();
 
